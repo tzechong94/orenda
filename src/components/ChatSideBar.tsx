@@ -2,7 +2,7 @@
 import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "./ui/Button";
 import { ArrowLeft, MessageCircle, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import axios from "axios";

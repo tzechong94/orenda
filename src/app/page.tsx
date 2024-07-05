@@ -1,56 +1,57 @@
-import { Button } from "@/components/ui/button";
-import { UserButton, auth } from "@clerk/nextjs";
+import { UserButton, useAuth } from "@clerk/nextjs";
 import Link from "next/link";
-import { ArrowRight, LogIn } from "lucide-react";
-import FileUpload from "@/components/FileUpload";
-import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
-import { chats } from "@/lib/db/schema";
-import { checkSubscription } from "@/lib/subscription";
-import SubscriptionButton from "@/components/SubscriptionButton";
+import { Button } from "@/components/ui/Button";
+import { LogIn } from "lucide-react";
+// import { createUserAction } from "./_actions";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function Home() {
   const { userId } = await auth();
-  console.log(userId, "userid");
   const isAuth = !!userId;
-  const isPro = await checkSubscription();
-  let firstChat;
+
   if (userId) {
-    firstChat = await db.select().from(chats).where(eq(chats.userId, userId));
-    if (firstChat) {
-      firstChat = firstChat[0];
-    }
+    // createUserAction(userId!.toString());
   }
-  return (
+
+  return isAuth ? (
+    <div className="w-full flex justify-center content-center">
+      <div className="flex flex-col items-center text-center">
+        <div className="flex items-center">
+          <h1 className="mt-10 text-5xl font-semibold">
+            customize knowledge base for chatgpt
+          </h1>
+        </div>
+        <p className="max-w-xl my-10 text-lg text-slate-600">
+          get more relevant responses
+        </p>
+        <div className="w-full mt-4">
+          <Link href="/sources">
+            <Button className="mx-2">create</Button>
+          </Link>
+          <Link href="/recon">
+            <Button className="mx-2">update</Button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="flex flex-col items-center text-center">
           <div className="flex items-center">
             <h1 className="mr-3 text-5xl font-semibold">
-              Customize your own ChatGPT
+              customize knowledge base for chatgpt
             </h1>
             <UserButton afterSignOutUrl="/" />
           </div>
-          <div className="flex mt-2">
-            {isAuth && firstChat && (
-              <>
-                <Link href={`/chat/${firstChat.id}`}>
-                  <Button>
-                    Go to Chats <ArrowRight className="ml-2" />
-                  </Button>
-                </Link>
-                {/* <div className="ml-3">
-                  <SubscriptionButton isPro={isPro} />
-                </div> */}
-              </>
-            )}
-          </div>
-          <p className="max-w-full mt-1 text-lg text-slate-600 mt-4">
-            Build your knowledge base here by uploading relevant files.
+          <p className="max-w-xl mt-1 text-lg text-slate-600">
+            get more relevant responses
           </p>
           <div className="w-full mt-4">
             {isAuth ? (
-              <FileUpload />
+              <Link href="/recon">
+                <Button>Recon now</Button>
+              </Link>
             ) : (
               <Link href="/sign-in">
                 <Button>
