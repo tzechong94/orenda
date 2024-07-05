@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { createBase } from "@/lib/api";
 import { CreateBaseRequest } from "@/lib/types";
 import { ArrowRight } from "lucide-react";

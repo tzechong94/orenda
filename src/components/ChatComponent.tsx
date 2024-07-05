@@ -1,9 +1,9 @@
 "use client";
 //tes
 import React from "react";
-import { Input } from "./ui/Input";
+import { Input } from "@/components/ui/input";
 import { useChat } from "ai/react";
-import { Button } from "./ui/Button";
+import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import MessageList from "./MessageList";
 import { useQuery } from "@tanstack/react-query";
