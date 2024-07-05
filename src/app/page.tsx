@@ -25,10 +25,10 @@ export default async function Home() {
           get more relevant responses
         </p>
         <div className="w-full mt-4">
-          <Link href="/sources">
+          <Link href="/create">
             <Button className="mx-2">create</Button>
           </Link>
-          <Link href="/recon">
+          <Link href="/bases">
             <Button className="mx-2">update</Button>
           </Link>
         </div>
